@@ -20,7 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchTextController = TextEditingController();
-  String categoryId = "electronics";
+  String categoryId = "";
 
   getData() {
     context.read<CategoryCubit>().getCategories();
