@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_magazin/src/data/api_status.dart';
 import 'package:task_magazin/src/presentation/cubits/category_cubit/category_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/category_cubit/category_state.dart';
+import 'package:task_magazin/src/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:task_magazin/src/presentation/views/home/widgets/category_item.dart';
 import 'package:task_magazin/src/presentation/views/home/widgets/product_grid_item.dart';
 import 'package:task_magazin/src/presentation/views/home/widgets/text_see_all.dart';
@@ -19,12 +20,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchTextController = TextEditingController();
-  String categoryId = "";
+  String categoryId = "electronics";
 
   getData() {
     context.read<CategoryCubit>().getCategories();
-    print("categoryId: $categoryId");
-    context.read<CategoryCubit>().getCategoryName(categoryId);
   }
 
   @override
@@ -38,9 +37,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
         if (state.status == ApiStatus.failure) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Error"),
-          ));
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Error"),
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -85,6 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       GestureDetector(
                         onTap: () {
                           categoryId = "";
+                          context
+                              .read<ProductCubit>()
+                              .getProductByCategoryName(categoryId);
                           setState(() {});
                         },
                         child: Container(
@@ -126,9 +130,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ...List.generate(
                         state.categories.length,
                         (index) => GestureDetector(
-                          onTap: () {
+                          onTap: ()async {
                             categoryId = state.categories[index];
-                            getData();
                             setState(() {});
                           },
                           child: CategoryItem(
@@ -144,14 +147,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 TextSeeAll(
                   text: categoryId == "" ? "All" : categoryId,
                   seeAll: "see all",
-                  onTap: () {
-                    print("${state.products.length}");
-                  },
+                  onTap: () {},
                 ),
                 SizedBox(height: 24.h),
                 SizedBox(
                   child: ProductGridItem(
-                    products: state.products,
+                    category: categoryId,
                   ),
                 )
               ],

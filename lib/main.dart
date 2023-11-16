@@ -8,6 +8,7 @@ import 'package:task_magazin/src/data/datasources/remote/api_service.dart';
 import 'package:task_magazin/src/data/repositories/category_repo.dart';
 import 'package:task_magazin/src/data/repositories/product_repo.dart';
 import 'package:task_magazin/src/presentation/cubits/category_cubit/category_cubit.dart';
+import 'package:task_magazin/src/presentation/cubits/product_cubit/product_cubit.dart';
 
 void main() {
   runApp(const App());
@@ -25,11 +26,15 @@ class App extends StatelessWidget {
           repository: CategoryRepo(
             apiService: apiService,
           ),
+        ),
+      ),
+      BlocProvider(
+        create: (context) => ProductCubit(
           productRepo: ProductRepo(
             apiService: apiService,
           ),
         ),
-      )
+      ),
     ], child: const MyApp());
   }
 }
