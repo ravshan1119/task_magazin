@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:task_magazin/src/presentation/views/cart/cart_screen.dart';
 import 'package:task_magazin/src/presentation/views/home/home_screen.dart';
 import 'package:task_magazin/src/utils/resources/app_colors.dart';
 
@@ -21,10 +22,7 @@ class _TabBoxState extends State<TabBox> {
       'Likes',
       style: optionStyle,
     ),
-    Text(
-      'Search',
-      style: optionStyle,
-    ),
+    CartScreen(),
     Text(
       'Profile',
       style: optionStyle,
@@ -84,9 +82,9 @@ class _TabBoxState extends State<TabBox> {
                 GButton(
                   iconActiveColor: AppColors.blue,
                   onPressed: () {
-                    print("search");
+                    print("Cart");
                   },
-                  icon: LineIcons.search,
+                  icon: LineIcons.shoppingCart,
                   text: 'Search',
                 ),
                 GButton(

@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:task_magazin/src/data/api_status.dart';
+import 'package:task_magazin/src/data/datasources/local/local_database.dart';
+import 'package:task_magazin/src/domain/models/product_model_sql.dart';
 import 'package:task_magazin/src/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/product_cubit/product_state.dart';
+import 'package:task_magazin/src/presentation/widgets/global_button.dart';
 import 'package:task_magazin/src/utils/extensions/size_extension.dart';
 import 'package:task_magazin/src/utils/resources/app_colors.dart';
 import 'package:task_magazin/src/utils/resources/app_text_styles.dart';
@@ -133,6 +136,32 @@ class _ProductGridItemState extends State<ProductGridItem> {
                         ),
                       ),
                       10.h,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GlobalButton(
+                            title: "Add to Cart",
+                            onTap: () {
+                              ProductModelSql productsModelSql =
+                                  ProductModelSql(
+                                idProduct: state.products[index].id,
+                                title: state.products[index].title,
+                                price: state.products[index].price,
+                                description: state.products[index].description,
+                                category: state.products[index].category,
+                                image: state.products[index].image,
+                                rate: state.products[index].rating.rate,
+                                rateCount: state.products[index].rating.count,
+                              );
+                              LocalDatabase.insertProduct(productsModelSql);
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                      content: Text(
+                                "Product ${state.products[index].title} added to cart",
+                                style: AppTextStyle.bodyMediumRegular
+                                    .copyWith(color: Colors.white),
+                              )));
+                            }),
+                      )
                     ],
                   ),
                 ),
