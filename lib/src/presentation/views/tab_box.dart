@@ -33,9 +33,8 @@ class _TabBoxState extends State<TabBox> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -66,23 +65,27 @@ class _TabBoxState extends State<TabBox> {
                   style: GnavStyle.oldSchool,
                   icon: LineIcons.home,
                   text: 'Home',
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   icon: LineIcons.heart,
                   text: 'Likes',
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   icon: LineIcons.shoppingCart,
                   text: 'Cart',
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {},
+                  onPressed: () {
+                  },
                   icon: LineIcons.user,
                   text: 'Profile',
                 ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:task_magazin/src/config/router/app_routes.dart';
 import 'package:task_magazin/src/data/api_status.dart';
 import 'package:task_magazin/src/presentation/cubits/users_cubit/users_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/users_cubit/users_state.dart';
+import 'package:task_magazin/src/presentation/views/profile/widgets/user_cart.dart';
 import 'package:task_magazin/src/utils/resources/app_colors.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -61,8 +60,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 state.users.length,
                 (index) => GestureDetector(
                   onTap: () {
-                    context.goNamed(AppRoutes.userCart,
-                        extra: state.users[index]);
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                UserCart(userId: state.users[index].id)));
                   },
                   child: Column(
                     children: [

@@ -40,17 +40,28 @@ class _UserCartState extends State<UserCart> {
             child: CircularProgressIndicator(),
           );
         }
-        return ListView(
-          children: [
-            ...List.generate(
-                state.carts.length,
-                (index) => ListTile(
-                      title: Text(state.carts[index].products[index].productId
-                          .toString()),
-                      subtitle: Text(state.carts[index].products[index].quantity
-                          .toString()),
-                    ))
-          ],
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              "User Carts",
+            ),
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: Colors.white,
+          ),
+          body: ListView(
+            children: [
+              ...List.generate(
+                  state.carts.length,
+                  (index) => ListTile(
+                        title: Text(state.carts[index].products[index].productId
+                            .toString()),
+                        subtitle: Text(state
+                            .carts[index].products[index].quantity
+                            .toString()),
+                      ))
+            ],
+          ),
         );
       },
     );
