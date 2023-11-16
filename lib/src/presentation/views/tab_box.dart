@@ -78,7 +78,7 @@ class _TabBoxState extends State<TabBox> {
                   iconActiveColor: AppColors.blue,
                   onPressed: () {},
                   icon: LineIcons.shoppingCart,
-                  text: 'Search',
+                  text: 'Cart',
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
