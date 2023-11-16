@@ -7,10 +7,7 @@ class UserRepo {
 
   final ApiService apiService;
 
-  Future<List<UserModel>> getAllUsers({
-    required String username,
-    required String password,
-  }) async {
+  Future<List<UserModel>> getAllUsers() async {
     UniversalResponse universalResponse = await apiService.getAllUsers();
     if (universalResponse.error.isEmpty) {
       return universalResponse.data as List<UserModel>;

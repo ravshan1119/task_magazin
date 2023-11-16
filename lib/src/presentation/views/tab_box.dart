@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:task_magazin/src/presentation/views/cart/cart_screen.dart';
 import 'package:task_magazin/src/presentation/views/home/home_screen.dart';
+import 'package:task_magazin/src/presentation/views/profile/profile_screen.dart';
 import 'package:task_magazin/src/utils/resources/app_colors.dart';
 
 class TabBox extends StatefulWidget {
@@ -23,10 +24,7 @@ class _TabBoxState extends State<TabBox> {
       style: optionStyle,
     ),
     CartScreen(),
-    Text(
-      'Profile',
-      style: optionStyle,
-    ),
+    ProfileScreen(),
   ];
 
   @override
@@ -35,8 +33,9 @@ class _TabBoxState extends State<TabBox> {
       appBar: AppBar(
         toolbarHeight: 0,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -67,31 +66,23 @@ class _TabBoxState extends State<TabBox> {
                   style: GnavStyle.oldSchool,
                   icon: LineIcons.home,
                   text: 'Home',
-                  onPressed: () {
-                    print("home");
-                  },
+                  onPressed: () {},
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {
-                    print("like");
-                  },
+                  onPressed: () {},
                   icon: LineIcons.heart,
                   text: 'Likes',
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {
-                    print("Cart");
-                  },
+                  onPressed: () {},
                   icon: LineIcons.shoppingCart,
                   text: 'Search',
                 ),
                 GButton(
                   iconActiveColor: AppColors.blue,
-                  onPressed: () {
-                    print("object");
-                  },
+                  onPressed: () {},
                   icon: LineIcons.user,
                   text: 'Profile',
                 ),

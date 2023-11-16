@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:task_magazin/src/data/datasources/remote/universal_response.dart';
 import 'package:task_magazin/src/domain/models/product_model.dart';
+import 'package:task_magazin/src/domain/models/user_carts_model.dart';
 import 'package:task_magazin/src/domain/models/user_model.dart';
 import 'package:task_magazin/src/utils/constants/app_constants.dart';
 
@@ -188,6 +189,26 @@ class ApiService {
         return UniversalResponse(
           data: (jsonDecode(response.body) as List?)
                   ?.map((e) => UserModel.fromJson(e))
+                  .toList() ??
+              [],
+        );
+      }
+      return UniversalResponse(error: 'Error: Status code not equal to 200');
+    } catch (e) {
+      return UniversalResponse(error: e.toString());
+    }
+  }
+
+  //------------------------------Cart provider---------------------------------
+
+  Future<UniversalResponse> getUserCarts(int userId) async {
+    Uri url = Uri.parse('$baseUrl/carts/user/$userId');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return UniversalResponse(
+          data: (jsonDecode(response.body) as List?)
+                  ?.map((e) => UserCartsModel.fromJson(e))
                   .toList() ??
               [],
         );
