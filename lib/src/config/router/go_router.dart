@@ -27,7 +27,7 @@ final router = GoRouter(
       path: '/user_cart',
       name: AppRoutes.userCart,
       builder: (context, state) => const UserCart(
-        userId: null,
+        userId: 1,
       ),
     ),
   ],

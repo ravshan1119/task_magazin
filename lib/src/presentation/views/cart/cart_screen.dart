@@ -44,7 +44,7 @@ class _CartScreenState extends State<CartScreen> {
           )
         : Scaffold(
             appBar: AppBar(
-              scrolledUnderElevation: 0,
+                scrolledUnderElevation: 0,
                 centerTitle: true,
                 elevation: 0,
                 backgroundColor: Colors.white,
@@ -116,6 +116,23 @@ class _CartScreenState extends State<CartScreen> {
                                   ),
                                   Text(
                                     " Price: ${productList[index].price}",
+                                    style:
+                                        const TextStyle(color: AppColors.black),
+                                  )
+                                ],
+                              ),
+                            ),
+                            10.h,
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.price_change_outlined,
+                                    color: AppColors.yellow,
+                                  ),
+                                  Text(
+                                    " Count: ${productList[index].count}",
                                     style:
                                         const TextStyle(color: AppColors.black),
                                   )

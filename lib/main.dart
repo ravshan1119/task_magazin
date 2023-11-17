@@ -47,7 +47,7 @@ class App extends StatelessWidget {
       ),
       BlocProvider(
         create: (context) => CartCubit(
-          repository: CartRepo(apiService: apiService),
+          cartRepo: CartRepo(apiService: apiService),
         ),
       ),
     ], child: const MyApp());

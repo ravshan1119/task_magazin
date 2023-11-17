@@ -45,7 +45,8 @@ class LocalDatabase {
     ${ProductsModelFields.category} $textType,
     ${ProductsModelFields.image} $textType,
     ${ProductsModelFields.rate} $doubleType,
-    ${ProductsModelFields.rateCount} $intType
+    ${ProductsModelFields.rateCount} $intType,
+    ${ProductsModelFields.count} $intType
     )
     ''');
 

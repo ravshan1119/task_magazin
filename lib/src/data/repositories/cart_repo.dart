@@ -18,10 +18,10 @@ class CartRepo {
   Future<UserCartsModel> getSingleCart(int userId) async {
     UniversalResponse universalResponse =
         await apiService.getSingleCart(userId);
+    print("Cart Repo: ${universalResponse.data}");
     if (universalResponse.error.isEmpty) {
       return universalResponse.data as UserCartsModel;
     }
-    return UserCartsModel(
-        id: 0, userId: 0, date: DateTime(2023), products: [], v: 0);
+    return UserCartsModel(id: 0, userId: 0, date: "", products: [], v: 0);
   }
 }

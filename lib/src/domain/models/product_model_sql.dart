@@ -8,6 +8,7 @@ class ProductsModelFields {
   static const String image = "image";
   static const String rate = "rate";
   static const String rateCount = "rate_count";
+  static const String count = "count";
 
   static const String productsTable = "products";
 }
@@ -22,6 +23,7 @@ class ProductModelSql {
   String image;
   double rate;
   int rateCount;
+  int count;
 
   ProductModelSql({
     this.id,
@@ -33,6 +35,7 @@ class ProductModelSql {
     required this.image,
     required this.rate,
     required this.rateCount,
+    required this.count,
   });
 
   ProductModelSql copyWith({
@@ -45,6 +48,7 @@ class ProductModelSql {
     double? rate,
     int? rateCount,
     int? id,
+    int? count,
   }) =>
       ProductModelSql(
         idProduct: idProduct ?? this.idProduct,
@@ -56,6 +60,7 @@ class ProductModelSql {
         rate: rate ?? this.rate,
         rateCount: rateCount ?? this.rateCount,
         id: id ?? this.id,
+        count: count ?? this.count,
       );
 
   factory ProductModelSql.fromJson(Map<String, dynamic> json) =>
@@ -69,6 +74,7 @@ class ProductModelSql {
         image: json[ProductsModelFields.image],
         rate: json[ProductsModelFields.rate],
         rateCount: json[ProductsModelFields.rateCount],
+        count: json[ProductsModelFields.count],
       );
 
   Map<String, dynamic> toJson() => {
@@ -81,5 +87,6 @@ class ProductModelSql {
         ProductsModelFields.image: image,
         ProductsModelFields.rate: rate,
         ProductsModelFields.rateCount: rateCount,
+        ProductsModelFields.count: count,
       };
 }

@@ -11,7 +11,7 @@ String temperaturesToJson(UserCartsModel data) => json.encode(data.toJson());
 class UserCartsModel {
   int id;
   int userId;
-  DateTime date;
+  String date;
   List<Product> products;
   int v;
 
@@ -26,7 +26,7 @@ class UserCartsModel {
   UserCartsModel copyWith({
     int? id,
     int? userId,
-    DateTime? date,
+    String? date,
     List<Product>? products,
     int? v,
   }) =>
@@ -41,7 +41,7 @@ class UserCartsModel {
   factory UserCartsModel.fromJson(Map<String, dynamic> json) => UserCartsModel(
     id: json["id"],
     userId: json["userId"],
-    date: DateTime.parse(json["date"]),
+    date: json["date"],
     products: List<Product>.from(json["products"].map((x) => Product.fromJson(x))),
     v: json["__v"],
   );
@@ -49,7 +49,7 @@ class UserCartsModel {
   Map<String, dynamic> toJson() => {
     "id": id,
     "userId": userId,
-    "date": date.toIso8601String(),
+    "date": date,
     "products": List<dynamic>.from(products.map((x) => x.toJson())),
     "__v": v,
   };

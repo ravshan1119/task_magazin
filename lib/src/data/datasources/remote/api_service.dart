@@ -225,6 +225,7 @@ class ApiService {
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
+        print("api service: ${jsonDecode(response.body)}");
         return UniversalResponse(
           data: (jsonDecode(response.body) as Map<String, dynamic>?),
         );

@@ -139,28 +139,44 @@ class _ProductGridItemState extends State<ProductGridItem> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: GlobalButton(
-                            title: "Add to Cart",
-                            onTap: () {
-                              ProductModelSql productsModelSql =
-                                  ProductModelSql(
-                                idProduct: state.products[index].id,
-                                title: state.products[index].title,
-                                price: state.products[index].price,
-                                description: state.products[index].description,
-                                category: state.products[index].category,
-                                image: state.products[index].image,
-                                rate: state.products[index].rating.rate,
-                                rateCount: state.products[index].rating.count,
+                          title: "Add to Cart",
+                          onTap: () async {
+                            ProductModelSql productsModelSql = ProductModelSql(
+                              idProduct: state.products[index].id,
+                              title: state.products[index].title,
+                              price: state.products[index].price,
+                              description: state.products[index].description,
+                              category: state.products[index].category,
+                              image: state.products[index].image,
+                              rate: state.products[index].rating.rate,
+                              rateCount: state.products[index].rating.count,
+                              count: 1,
+                            );
+                            List<ProductModelSql> products =
+                                await LocalDatabase.getProductsByQuery(
+                                    productsModelSql.title);
+                            if (products.isEmpty) {
+                              LocalDatabase.insertProduct(
+                                  productsModelSql.copyWith(count: 1));
+                            } else {
+                              productsModelSql.copyWith(
+                                  count: products[0].count + 1);
+                              LocalDatabase.updateProduct(
+                                  productModelSql: productsModelSql);
+                            }
+                            if (context.mounted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    "Product ${state.products[index].title} added to cart",
+                                    style: AppTextStyle.bodyMediumRegular
+                                        .copyWith(color: Colors.white),
+                                  ),
+                                ),
                               );
-                              LocalDatabase.insertProduct(productsModelSql);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
-                                      content: Text(
-                                "Product ${state.products[index].title} added to cart",
-                                style: AppTextStyle.bodyMediumRegular
-                                    .copyWith(color: Colors.white),
-                              )));
-                            }),
+                            }
+                          },
+                        ),
                       )
                     ],
                   ),

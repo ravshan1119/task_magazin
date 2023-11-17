@@ -3,25 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_magazin/src/data/api_status.dart';
 import 'package:task_magazin/src/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/cart_cubit/cart_state.dart';
-import 'package:task_magazin/src/presentation/views/profile/widgets/user_cart_item.dart';
 
 class UserCart extends StatefulWidget {
   const UserCart({super.key, required this.userId});
 
-  final int? userId;
+  final int userId;
 
   @override
   State<UserCart> createState() => _UserCartState();
 }
 
 class _UserCartState extends State<UserCart> {
-  getData() async {
-    context.read<CartCubit>().getSingleCart(widget.userId!);
-  }
-
   @override
   void initState() {
-    getData();
+    context.read<CartCubit>().getUserCarts(widget.userId);
     super.initState();
   }
 
@@ -43,22 +38,15 @@ class _UserCartState extends State<UserCart> {
         }
         return Scaffold(
           appBar: AppBar(
-            title: const Text(
-              "User Carts",
-            ),
+            title: const Text("User Cart"),
             centerTitle: true,
             elevation: 0,
             backgroundColor: Colors.white,
+            scrolledUnderElevation: 0,
           ),
-          body: ListView(
+          body: Column(
             children: [
-              ...List.generate(
-                state.userCarts.products.length,
-                (index) => UserCartItem(
-                  id: state.userCarts.products[index].productId,
-                  count: state.userCarts.products[index].quantity,
-                ),
-              )
+              Center(child: Text("${state.userCart.userId}")),
             ],
           ),
         );

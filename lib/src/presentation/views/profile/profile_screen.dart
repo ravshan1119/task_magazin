@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_magazin/src/data/api_status.dart';
+import 'package:task_magazin/src/presentation/cubits/product_cubit/product_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/users_cubit/users_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/users_cubit/users_state.dart';
 import 'package:task_magazin/src/presentation/views/profile/widgets/user_cart.dart';
@@ -61,10 +62,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 (index) => GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                UserCart(userId: state.users[index].id)));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            UserCart(userId: state.users[index].id),
+                      ),
+                    );
                   },
                   child: Column(
                     children: [

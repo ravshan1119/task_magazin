@@ -1,46 +1,42 @@
 import 'package:equatable/equatable.dart';
 import 'package:task_magazin/src/data/api_status.dart';
+import 'package:task_magazin/src/domain/models/product_model.dart';
 import 'package:task_magazin/src/domain/models/user_carts_model.dart';
 
 class CartState extends Equatable {
   final ApiStatus status;
-  final List<UserCartsModel> carts;
-  final UserCartsModel userCarts;
+  final UserCartsModel userCart;
   final String error;
 
   const CartState({
     required this.status,
-    required this.carts,
     required this.error,
-    required this.userCarts,
+    required this.userCart,
   });
 
   factory CartState.initial() {
     return CartState(
-        status: ApiStatus.initial,
-        carts: [],
-        error: "",
-        userCarts: UserCartsModel(
-            id: 0, userId: 0, date: DateTime(2023), products: [], v: 0));
+      status: ApiStatus.initial,
+      error: "",
+      userCart: UserCartsModel(id: 0, userId: 0, date: "", products: [], v: 0),
+    );
   }
 
   @override
-  List<Object?> get props => [status, carts, error, userCarts];
+  List<Object?> get props => [status, error, userCart];
 
   @override
   bool get stringify => true;
 
   CartState copyWith({
     ApiStatus? status,
-    List<UserCartsModel>? carts,
     String? error,
-    UserCartsModel? userCarts,
+    UserCartsModel? userCart,
   }) {
     return CartState(
       status: status ?? this.status,
-      carts: carts ?? this.carts,
       error: error ?? this.error,
-      userCarts: userCarts ?? this.userCarts,
+      userCart: userCart ?? this.userCart,
     );
   }
 }
