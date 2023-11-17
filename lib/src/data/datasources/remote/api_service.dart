@@ -75,6 +75,7 @@ class ApiService {
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
+        print("api service: ${jsonDecode(response.body)}");
         return UniversalResponse(
             data: ProductModel.fromJson(jsonDecode(response.body)));
       } else if (response.statusCode != 200) {
@@ -211,6 +212,21 @@ class ApiService {
                   ?.map((e) => UserCartsModel.fromJson(e))
                   .toList() ??
               [],
+        );
+      }
+      return UniversalResponse(error: 'Error: Status code not equal to 200');
+    } catch (e) {
+      return UniversalResponse(error: e.toString());
+    }
+  }
+
+  Future<UniversalResponse> getSingleCart(int userId) async {
+    Uri url = Uri.parse('$baseUrl/carts/$userId');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return UniversalResponse(
+          data: (jsonDecode(response.body) as Map<String, dynamic>?),
         );
       }
       return UniversalResponse(error: 'Error: Status code not equal to 200');

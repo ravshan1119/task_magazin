@@ -5,23 +5,35 @@ import 'package:task_magazin/src/domain/models/product_model.dart';
 class ProductState extends Equatable {
   final ApiStatus status;
   final List<ProductModel> products;
+  final ProductModel product;
   final String error;
 
-  const ProductState(
-      {required this.status,
-      required this.error,
-      required this.products});
+  const ProductState({
+    required this.status,
+    required this.error,
+    required this.products,
+    required this.product,
+  });
 
   factory ProductState.initial() {
-    return const ProductState(
+    return ProductState(
       status: ApiStatus.initial,
       error: "",
       products: [],
+      product: ProductModel(
+        id: 0,
+        title: "",
+        price: 0,
+        description: "",
+        category: "",
+        image: "",
+        rating: Rating(rate: 0, count: 0),
+      ),
     );
   }
 
   @override
-  List<Object?> get props => [status, error, products];
+  List<Object?> get props => [status, error, products, product];
 
   @override
   bool get stringify => true;
@@ -31,11 +43,13 @@ class ProductState extends Equatable {
     List<String>? categories,
     String? error,
     List<ProductModel>? products,
+    ProductModel? product,
   }) {
     return ProductState(
       status: status ?? this.status,
       error: error ?? this.error,
       products: products ?? this.products,
+      product: product ?? this.product,
     );
   }
 }

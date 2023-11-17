@@ -29,4 +29,25 @@ class CartCubit extends Cubit<CartState> {
     }
     emit(state.copyWith(status: ApiStatus.initial));
   }
+
+  Future<void> getSingleCart(int userId) async {
+    if (state.carts.isNotEmpty) {
+      emit(state.copyWith());
+      return;
+    }
+    emit(state.copyWith(status: ApiStatus.loading));
+    try {
+      final UserCartsModel users = await repository.getSingleCart(userId);
+      emit(state.copyWith(
+        status: ApiStatus.success,
+        userCarts: users,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: ApiStatus.failure,
+        error: e.toString(),
+      ));
+    }
+    emit(state.copyWith(status: ApiStatus.initial));
+  }
 }

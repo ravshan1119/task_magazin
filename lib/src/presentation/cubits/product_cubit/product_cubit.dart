@@ -53,4 +53,27 @@ class ProductCubit extends Cubit<ProductState> {
     }
     emit(state.copyWith(status: ApiStatus.initial));
   }
+
+  Future<void> getProductById(int id) async {
+    if (state.products.isNotEmpty) {
+      emit(state.copyWith());
+      return;
+    }
+    emit(state.copyWith(status: ApiStatus.loading));
+    try {
+      print("cubitdan id: $id");
+      final ProductModel product = await productRepo.getProductById(id);
+      print("products: $product");
+      emit(state.copyWith(
+        status: ApiStatus.success,
+        product: product,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        status: ApiStatus.failure,
+        error: e.toString(),
+      ));
+    }
+    emit(state.copyWith(status: ApiStatus.initial));
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_magazin/src/data/api_status.dart';
 import 'package:task_magazin/src/presentation/cubits/cart_cubit/cart_cubit.dart';
 import 'package:task_magazin/src/presentation/cubits/cart_cubit/cart_state.dart';
+import 'package:task_magazin/src/presentation/views/profile/widgets/user_cart_item.dart';
 
 class UserCart extends StatefulWidget {
   const UserCart({super.key, required this.userId});
@@ -15,7 +16,7 @@ class UserCart extends StatefulWidget {
 
 class _UserCartState extends State<UserCart> {
   getData() async {
-    context.read<CartCubit>().getUsers(widget.userId!);
+    context.read<CartCubit>().getSingleCart(widget.userId!);
   }
 
   @override
@@ -52,14 +53,12 @@ class _UserCartState extends State<UserCart> {
           body: ListView(
             children: [
               ...List.generate(
-                  state.carts.length,
-                  (index) => ListTile(
-                        title: Text(state.carts[index].products[index].productId
-                            .toString()),
-                        subtitle: Text(state
-                            .carts[index].products[index].quantity
-                            .toString()),
-                      ))
+                state.userCarts.products.length,
+                (index) => UserCartItem(
+                  id: state.userCarts.products[index].productId,
+                  count: state.userCarts.products[index].quantity,
+                ),
+              )
             ],
           ),
         );

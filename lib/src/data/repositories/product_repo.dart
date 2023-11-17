@@ -66,4 +66,22 @@ class ProductRepo {
     }
     return [];
   }
+
+  Future<ProductModel> getProductById(int id) async {
+    UniversalResponse universalResponse =
+        await apiService.getProductById(id: id);
+    print("product repo universalResponse: ${universalResponse.data}");
+    if (universalResponse.error.isEmpty) {
+      return universalResponse.data as ProductModel;
+    }
+    return ProductModel(
+      id: 0,
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+      image: "",
+      rating: Rating(rate: 0, count: 0),
+    );
+  }
 }

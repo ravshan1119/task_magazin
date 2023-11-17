@@ -14,4 +14,14 @@ class CartRepo {
     }
     return [];
   }
+
+  Future<UserCartsModel> getSingleCart(int userId) async {
+    UniversalResponse universalResponse =
+        await apiService.getSingleCart(userId);
+    if (universalResponse.error.isEmpty) {
+      return universalResponse.data as UserCartsModel;
+    }
+    return UserCartsModel(
+        id: 0, userId: 0, date: DateTime(2023), products: [], v: 0);
+  }
 }
