@@ -10,10 +10,10 @@ class UserCubit extends Cubit<UserState> {
   UserCubit({required this.repository}) : super(UserState.initial());
 
   Future<void> getUsers() async {
-    if (state.users.isNotEmpty) {
-      emit(state.copyWith());
-      return;
-    }
+    // if (state.users.isNotEmpty) {
+    //   emit(state.copyWith());
+    //   return;
+    // }
     emit(state.copyWith(status: ApiStatus.loading));
     try {
       final List<UserModel> users = await repository.getAllUsers();

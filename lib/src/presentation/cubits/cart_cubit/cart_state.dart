@@ -5,7 +5,7 @@ import 'package:task_magazin/src/domain/models/user_carts_model.dart';
 
 class CartState extends Equatable {
   final ApiStatus status;
-  final UserCartsModel userCart;
+  final List<UserCartsModel> userCart;
   final String error;
 
   const CartState({
@@ -15,10 +15,10 @@ class CartState extends Equatable {
   });
 
   factory CartState.initial() {
-    return CartState(
+    return const CartState(
       status: ApiStatus.initial,
       error: "",
-      userCart: UserCartsModel(id: 0, userId: 0, date: "", products: [], v: 0),
+      userCart: [],
     );
   }
 
@@ -31,7 +31,7 @@ class CartState extends Equatable {
   CartState copyWith({
     ApiStatus? status,
     String? error,
-    UserCartsModel? userCart,
+    List<UserCartsModel>? userCart,
   }) {
     return CartState(
       status: status ?? this.status,

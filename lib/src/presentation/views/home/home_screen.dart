@@ -130,8 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       ...List.generate(
                         state.categories.length,
                         (index) => GestureDetector(
-                          onTap: ()async {
+                          onTap: () async {
                             categoryId = state.categories[index];
+                            context
+                                .read<ProductCubit>()
+                                .getProductByCategoryName(categoryId);
                             setState(() {});
                           },
                           child: CategoryItem(
